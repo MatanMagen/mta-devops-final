@@ -1,0 +1,227 @@
+{
+  "id": "b5ffe56a-3986-454d-a261-fcd52d8f0e92",
+  "version": "2.0",
+  "name": "MTA DevOps Final - JSP App",
+  "url": "http://localhost:8080/matan-yael-roy-ofri-app/",
+  "tests": [{
+    "id": "d0c648d5-9fdc-4f7f-ae9e-7448862502be",
+    "name": "Valid Name Submission",
+    "commands": [{
+      "id": "0a7d612d-428d-4444-bcf2-33b8f6b21e16",
+      "comment": "",
+      "command": "open",
+      "target": "/matan-yael-roy-ofri-app/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "583484ba-bb6b-4e67-84de-6d25de09632d",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1012x468",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "21f94f6e-c57e-4438-a26c-ffb255b3828f",
+      "comment": "",
+      "command": "click",
+      "target": "name=name",
+      "targets": [
+        ["name=name", "name"],
+        ["css=input", "css:finder"],
+        ["xpath=//input[@name='name']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9282afce-c1a2-4bf9-a127-6186918ed249",
+      "comment": "",
+      "command": "type",
+      "target": "name=name",
+      "targets": [
+        ["name=name", "name"],
+        ["css=input", "css:finder"],
+        ["xpath=//input[@name='name']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "yael"
+    }, {
+      "id": "2ea77c13-d60f-4e31-8228-cf7934030f83",
+      "comment": "",
+      "command": "click",
+      "target": "css=button",
+      "targets": [
+        ["css=button", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Say Hello')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "de486e0f-71d3-48d7-8a05-aa49a268a650",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.greeting",
+      "targets": [
+        ["css=.greeting", "css:finder"],
+        ["xpath=//p[3]", "xpath:position"],
+        ["xpath=//p[contains(.,'Hello, yael!')]", "xpath:innerText"]
+      ],
+      "value": "Hello, yael!"
+    }]
+  }, {
+    "id": "d9ce8946-a1ff-42ee-a3be-e03f8989e3ab",
+    "name": "Empty Input Edge Case",
+    "commands": [{
+      "id": "df8b270f-360f-45c8-9210-143330668d9c",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/matan-yael-roy-ofri-app/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "72cb0620-2133-48a7-a609-6befeab67650",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1012x468",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "70f403b8-8326-4aab-8f27-09c0d5b4678c",
+      "comment": "",
+      "command": "click",
+      "target": "css=button",
+      "targets": [
+        ["css=button", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Say Hello')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7b39d8fd-6a35-4c6e-8f63-3c96a3fb3a8c",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "css=.greeting",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "2aab69da-9c46-4edf-9061-922dbfea6010",
+    "name": "External Link Presence",
+    "commands": [{
+      "id": "cd75cd53-f5d3-4003-b9be-7fe433f90498",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/matan-yael-roy-ofri-app/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6c1665bf-92db-4fb8-b688-5473c6e7d90a",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1012x468",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5fc7b787-7e59-4a0b-b03d-74a4e4fe81fb",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=MTA College Website",
+      "targets": [
+        ["linkText=MTA College Website", "linkText"],
+        ["css=a", "css:finder"],
+        ["xpath=//a[contains(text(),'MTA College Website')]", "xpath:link"],
+        ["xpath=//a[contains(@href, 'https://www.mta.ac.il')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'MTA College Website')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8cb04b9b-bb81-4b98-bb7c-e12e03096731",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//a[@href='https://www.mta.ac.il/']",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "afca02f9-dbef-484f-aaa9-2a94b9cd8b93",
+    "name": "Initial Page Load",
+    "commands": [{
+      "id": "7362098a-c9b4-4f2d-a0d8-1ee8226a163b",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/matan-yael-roy-ofri-app/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bf48ebca-1d13-4cd8-b356-f46d46a2f70f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1012x468",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0731d422-9933-4cdc-9c95-a51d0dd11771",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h1",
+      "targets": [
+        ["css=h1", "css:finder"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'MTA DevOps Final - JSP App')]", "xpath:innerText"]
+      ],
+      "value": "MTA DevOps Final - JSP App"
+    }, {
+      "id": "8c6e4557-1090-41fe-b1b9-ec893aa01871",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=//p",
+      "targets": [
+        ["css=p:nth-child(4)", "css:finder"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'Team: Matan Magen, Yael Moshkovich, Roy Kalfon, Ofri Kuperberg')]", "xpath:innerText"]
+      ],
+      "value": "Team: Matan Magen, Yael Moshkovich, Roy Kalfon, Ofri Kuperberg"
+    }]
+  }, {
+    "id": "47b1f768-379c-45a6-aa19-6a7881b604d9",
+    "name": "Server Time check",
+    "commands": [{
+      "id": "971bff6b-d87a-4dc1-b9a2-6cca62610e13",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/matan-yael-roy-ofri-app/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1138f6a7-b207-40f6-8ca0-74a7e19efbcb",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "675x313",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f7b7c1c5-edd6-41ea-a081-d9faf32f2f29",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//p[contains(text(), 'Server time:')]",
+      "targets": [
+        ["css=p:nth-child(5)", "css:finder"],
+        ["xpath=//p[2]", "xpath:position"],
+        ["xpath=//p[contains(.,'Server time: Wed Jun 10 22:56:51 IDT 2026')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "0fc0f517-af58-4432-bac9-35e242bce649",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["d0c648d5-9fdc-4f7f-ae9e-7448862502be"]
+  }],
+  "urls": ["http://localhost:8080/", "http://localhost:8080/matan-yael-roy-ofri-app/"],
+  "plugins": []
+}
