@@ -9,6 +9,7 @@ pipeline {
     environment {
         // path to the Gatling project, relative to the repo checkout root
         PROJECT_DIR = 'gatling-tests'
+        TOMCAT_SERVICE_NAME = 'Tomcat9'
     }
 
     stages {
@@ -24,21 +25,40 @@ pipeline {
             steps {
                 dir(PROJECT_DIR) {
                     bat 'mvn -B gatling:test -Dgatling.simulationClass=devops.LoadTestSimulation'
-                    bat 'mvn -B gatling:test -Dgatling.simulationClass=devops.StressTestSimulation'
+                    // 5000 concurrent users can push Tomcat to connection-refused territory -
+                    // don't let that abort the pipeline, Tomcat gets restarted before Max Limit Tests
+                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                        bat 'mvn -B gatling:test -Dgatling.simulationClass=devops.StressTestSimulation'
+                    }
                 }
+            }
+        }
+
+        stage('Restart Tomcat') {
+            steps {
+                // guarantee a clean server state before the destructive burst tests,
+                // regardless of whether the stress test above crashed it
+                bat '(net stop %TOMCAT_SERVICE_NAME%) || exit 0'
+                bat 'net start %TOMCAT_SERVICE_NAME%'
             }
         }
 
         stage('Max Limit Tests (isolated bursts)') {
             steps {
                 dir(PROJECT_DIR) {
-                    // each burst size gets its own mvn/JVM invocation so it starts from a clean
-                    // connection/queue state - see MAX_LIMIT_REPORT.md for why mixing burst sizes
-                    // in one run produces misleading results
-                    bat 'mvn -B gatling:test -Dgatling.simulationClass=devops.TomcatMaxLimitSimulation -Dburst.size=1500'
-                    bat 'mvn -B gatling:test -Dgatling.simulationClass=devops.TomcatMaxLimitSimulation -Dburst.size=2000'
-                    bat 'mvn -B gatling:test -Dgatling.simulationClass=devops.TomcatMaxLimitSimulation -Dburst.size=5000'
-                    bat 'mvn -B gatling:test -Dgatling.simulationClass=devops.TomcatMaxLimitSimulation -Dburst.size=10000'
+                    script {
+                        // each burst size gets its own mvn/JVM invocation AND a Tomcat restart so it
+                        // starts from a clean connection/queue state - see MAX_LIMIT_REPORT.md for why
+                        // mixing burst sizes (or a degraded server) in one run produces misleading results
+                        def burstSizes = [1500, 2000, 5000, 10000]
+                        for (size in burstSizes) {
+                            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                                bat "mvn -B gatling:test -Dgatling.simulationClass=devops.TomcatMaxLimitSimulation -Dburst.size=${size}"
+                            }
+                            bat '(net stop %TOMCAT_SERVICE_NAME%) || exit 0'
+                            bat 'net start %TOMCAT_SERVICE_NAME%'
+                        }
+                    }
                 }
             }
         }
