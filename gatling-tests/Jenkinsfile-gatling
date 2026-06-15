@@ -7,8 +7,8 @@ pipeline {
     }
 
     environment {
-        // local checkout-free path to this project - used by Option A (inline Pipeline script)
-        PROJECT_DIR = 'C:/Users/ofrik/iCloudDrive/Documents/computer_science/year_4/semester_2/DevOps/devops-gatling-test'
+        // path to the Gatling project, relative to the repo checkout root
+        PROJECT_DIR = 'gatling-tests'
     }
 
     stages {
