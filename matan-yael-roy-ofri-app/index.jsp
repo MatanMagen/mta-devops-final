@@ -19,7 +19,7 @@
     <p>Team: Matan Magen, Yael Moshkovich, Roy Kalfon, Ofri Kuperberg</p>
     <p>Server time: <%= new java.util.Date() %></p>
 
-    <!-- Requirement: one input text box + one button -->
+    <!-- Requirement: one input text box + one button! -->
     <form method="get" action="index.jsp">
         <input type="text" name="name" placeholder="Enter your name">
         <button type="submit">Say Hello</button>
